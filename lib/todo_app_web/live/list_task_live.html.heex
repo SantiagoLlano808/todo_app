@@ -1,0 +1,42 @@
+<h2>List with tasks</h2>
+<%= # inspect @changeset %>
+<br>
+<%= # inspect @tasks %>
+
+<.form let={f} for={@changeset} phx-change="validate" phx-submit="save">
+
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+  <%= label f, :tags %>
+  <%= multiple_select f, :tags, ["Supermarket": "supermarket", "Work": "work"] %>
+  <%= error_tag f, :tags %>
+
+  <%= submit "Save the list" %>
+
+  <%= error_tag f, :tasks %>
+
+</.form>
+
+<.form let={f} for={@changeset_task} phx-change="validate_task" phx-submit="add_task">
+  <%= label f, :description %>
+  <%= text_input f, :description %>
+  <%= error_tag f, :description %>
+
+  <%= label f, :done %>
+  <%= checkbox f, :done %>
+  <%= error_tag f, :done %>
+
+  <div>
+    <%= submit "Add task" %>
+  </div>
+</.form>
+
+<div>
+  <ul>
+    <%= for task <- @tasks do %>
+      <li><%= inspect task %></li>
+    <% end %>
+  </ul>
+</div>
